@@ -59,7 +59,6 @@ class Distribution:
         plt.show()
 
 
-Distribution(1000).salutations()
 Distribution(1000).plot_histogram()
 Distribution(1000).plot_pdf()
 Distribution(1000).plot_cdf()

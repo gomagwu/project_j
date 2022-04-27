@@ -3,27 +3,47 @@ import scipy.interpolate as interp
 import scipy.stats as stats
 import matplotlib.pyplot as plt
 
-# Using triangular() method
-tr_array = np.random.triangular(-5, 0, 5, 5000)
 
-# Using normal() method
-array = np.random.normal(0.0, 1.0, 5000)
+class Distribution:
 
-# Concatenate
-cons = np.concatenate((tr_array, array))
+    def __init__(self, number_of_samples):
+        self.number_of_samples = number_of_samples
+        # Using triangular() method
+        tr_array = np.random.triangular(-5, 0, 5, int(number_of_samples / 2))
 
-hist, bins = np.histogram(cons)
+        # Using normal() method
+        array = np.random.normal(0.0, 1.0, int(number_of_samples / 2))
 
-loc, scale = stats.norm.fit(cons)
+        # Concatenate
+        self.cons = np.concatenate((tr_array, array))
 
-# PDF (probability density function)
+    @staticmethod
+    def salutations():
+        print("Thank you for using my app")
 
-x = np.linspace(start=-5, stop=5, num=10000)
-pdf = stats.norm.pdf(x, loc=loc, scale=scale)
-pdf = interp.interp1d(x, pdf, bounds_error=True)
+    def plot_histogram(self):
+        # the histogram of the data
+        hist, bins = np.histogram(self.cons)
+        plt.hist(self.cons, bins=bins)
+        plt.title("histogram")
+        plt.show()
 
-# Visualizing
-plt.scatter(x, pdf(x))
-plt.title("Interp1d for PDF")
-plt.show()
+    def plot_pdf(self):
+        # the histogram of the data
+        loc, scale = stats.norm.fit(self.cons)
 
+        # PDF (probability density function)
+
+        x = np.linspace(start=-5, stop=5, num=self.number_of_samples)
+        pdf = stats.norm.pdf(x, loc=loc, scale=scale)
+        pdf = interp.interp1d(x, pdf, bounds_error=True)
+
+        # Visualizing
+        plt.scatter(x, pdf(x))
+        plt.title("Interp1d for PDF")
+        plt.show()
+
+
+Distribution(1000).salutations()
+Distribution(1000).plot_histogram()
+Distribution(1000).plot_pdf()

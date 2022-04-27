@@ -43,7 +43,23 @@ class Distribution:
         plt.title("Interp1d for PDF")
         plt.show()
 
+    def plot_cdf(self):
+        # the histogram of the data
+        loc, scale = stats.norm.fit(self.cons)
+
+        # PDF (probability density function)
+
+        x = np.linspace(start=-5, stop=5, num=self.number_of_samples)
+        cdf = stats.norm.cdf(x, loc=loc, scale=scale)
+        cdf = interp.interp1d(x, cdf, bounds_error=True)
+
+        # Visualizing
+        plt.scatter(x, cdf(x))
+        plt.title("Interp1d for CDF")
+        plt.show()
+
 
 Distribution(1000).salutations()
 Distribution(1000).plot_histogram()
 Distribution(1000).plot_pdf()
+Distribution(1000).plot_cdf()

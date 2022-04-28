@@ -29,7 +29,7 @@ class Distribution:
         plt.show()
 
     def plot_pdf(self):
-        # the histogram of the data
+        
         loc, scale = stats.norm.fit(self.cons)
 
         # PDF (probability density function)
@@ -44,10 +44,10 @@ class Distribution:
         plt.show()
 
     def plot_cdf(self):
-        # the histogram of the data
+        
         loc, scale = stats.norm.fit(self.cons)
 
-        # PDF (probability density function)
+       # CDF
 
         x = np.linspace(start=-5, stop=5, num=self.number_of_samples)
         cdf = stats.norm.cdf(x, loc=loc, scale=scale)
